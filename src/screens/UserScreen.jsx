@@ -33,7 +33,7 @@ const AVATAR_TOP = MAX_HEADER_HEIGHT - MAX_AVATAR_SIZE / 2;
 const DIMENSIONS_WITH_HALF = Dimensions.get('window').width / 2;
 const DIMENSIONS_HEIGHT_HALF = Dimensions.get('window').height / 2;
 
-export const HomeScreen = ({}) => {
+export const UserScreen = () => {
   const { user, setUser } = useContext(AppContext);
   const [items, setItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -82,7 +82,7 @@ export const HomeScreen = ({}) => {
           //   </View>
           //   <Divider />
           // </React.Fragment>
-          <Card style={{ margin: 8 }}>
+          <Card key={index.toString()} style={{ margin: 8 }}>
             <Card.Title title={random} subtitle="Card Subtitle" />
             {/* <Card.Content>
               <Title>Card title</Title>
@@ -104,6 +104,7 @@ export const HomeScreen = ({}) => {
           </Card>
         ))}
       </ScrollView>
+
       <Animated.View
         style={[
           styles.headerContainer,
@@ -126,16 +127,7 @@ export const HomeScreen = ({}) => {
           style={{ flex: 1, width: '100%' }}
           resizeMethod="auto"
         />
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 6,
-            right: 10,
-            backgroundColor: '#ddd',
-            opacity: 0.4,
-            borderRadius: 3,
-          }}
-        >
+        <View style={styles.backgroundChangeContainer}>
           <Button mode="text" color="#000">
             背景を変更する
           </Button>
@@ -169,6 +161,7 @@ export const HomeScreen = ({}) => {
           },
         ]}
       />
+
       <View
         style={{
           position: 'absolute',
@@ -198,6 +191,7 @@ export const HomeScreen = ({}) => {
           <FontAwesome name="car" size={24} color={'white'} />
         </TouchableOpacity>
       </View>
+
       {refreshing && (
         <View style={styles.loadingContainer}>
           <Caption>更新中</Caption>
@@ -228,6 +222,14 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     left: 0,
+  },
+  backgroundChangeContainer: {
+    position: 'absolute',
+    bottom: 6,
+    right: 10,
+    backgroundColor: '#ddd',
+    opacity: 0.4,
+    borderRadius: 3,
   },
   avatarContainer: {
     borderRadius: 100,

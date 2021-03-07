@@ -1,12 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import {
+  useNavigation,
+  getFocusedRouteNameFromRoute,
+  useRoute,
+} from '@react-navigation/native';
 import { AppContext } from '../context/AppContext';
 
 export const WelcomeScreen = ({}) => {
   const { setUser } = useContext(AppContext);
   const navigation = useNavigation();
+  const route = useRoute();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'アニメーションデモアプリ',
+    });
+  }, [navigation, route]);
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
