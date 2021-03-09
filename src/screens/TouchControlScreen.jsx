@@ -8,6 +8,7 @@ import {
   Dimensions,
   Animated,
   PanResponder,
+  InteractionManager,
 } from 'react-native';
 import {
   Text,
@@ -51,11 +52,21 @@ export const TouchControlScreen = ({}) => {
     }),
     onPanResponderRelease: (e, gestureState) => {
       // console.log({ gestureState });
+
+      // reset
+      // pan.setValue({ x: 0, y: 0 });
+
       const { dx, dy } = gestureState;
-      Animated.spring(pan, {
-        toValue: { x: dx, y: dy },
-        useNativeDriver: false,
-      }).start();
+      pan.setValue({ x: dx, y: dy });
+
+      // Animated.spring(pan, {
+      //   toValue: { x: 0, y: 0 },
+      //   useNativeDriver: false,
+      // }).start();
+
+      // InteractionManager.runAfterInteractions(() => {
+      //   console.log('move end');
+      // });
     },
   });
 

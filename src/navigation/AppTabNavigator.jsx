@@ -6,6 +6,7 @@ import { AppContext } from '../context/AppContext';
 
 import { TouchControlScreen } from '../screens/TouchControlScreen';
 import { UserScreen } from '../screens/UserScreen';
+import { ViewTransportScreen } from '../screens/ViewTransportScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ export const AppTabNavigator = () => {
               iconName = 'user';
               break;
             default:
-              iconName = 'question-circle-o';
+              iconName = 'transgender-alt';
               break;
           }
           return <FontAwesome name={iconName} size={size} color={color} />;
@@ -36,6 +37,7 @@ export const AppTabNavigator = () => {
     >
       <Tab.Screen name="TouchHandle" component={TouchControlScreen} />
       <Tab.Screen name="User" component={UserScreen} />
+      <Tab.Screen name="Transport" component={ViewTransportScreen} />
     </Tab.Navigator>
   );
 };

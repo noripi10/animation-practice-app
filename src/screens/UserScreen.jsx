@@ -9,8 +9,10 @@ import {
   RefreshControl,
   Dimensions,
   TouchableOpacity,
+  InteractionManager,
 } from 'react-native';
 import {
+  Avatar,
   Button,
   Divider,
   Text,
@@ -23,6 +25,9 @@ import {
 } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
 import { AppContext } from '../context/AppContext';
+import { FlatList } from 'react-native-gesture-handler';
+
+const AnimatedAvatar = Animated.createAnimatedComponent(FontAwesome);
 
 const MAX_HEADER_HEIGHT = 150;
 const MIN_HEADER_HEIGHT = 80;
@@ -38,6 +43,8 @@ export const UserScreen = () => {
   const [items, setItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
+
+  const animationValue = useRef(new Animated.Value(0)).current;
 
   return (
     <View style={styles.container}>
@@ -97,7 +104,11 @@ export const UserScreen = () => {
               >
                 Cancel
               </Button>
-              <Button mode="outlined" uppercase={false}>
+              <Button
+                mode="outlined"
+                uppercase={false}
+                onPress={() => alert(random)}
+              >
                 {`OK`}
               </Button>
             </Card.Actions>
@@ -161,7 +172,6 @@ export const UserScreen = () => {
           },
         ]}
       />
-
       <View
         style={{
           position: 'absolute',
@@ -174,7 +184,7 @@ export const UserScreen = () => {
           style={styles.iconButton}
           onPress={() => setUser(null)}
         >
-          <FontAwesome name="plane" size={24} color={'white'} />
+          <AnimatedAvatar name="plane" size={24} color={'white'} />
         </TouchableOpacity>
       </View>
       <View
@@ -186,9 +196,34 @@ export const UserScreen = () => {
       >
         <TouchableOpacity
           style={styles.iconButton}
-          onPress={() => alert(user.name)}
+          onPress={() => {
+            //resetしておいてからアニメーション開始
+            animationValue.setValue(0);
+            Animated.timing(animationValue, {
+              toValue: 150,
+              duration: 2000,
+              useNativeDriver: false,
+            }).start();
+
+            InteractionManager.runAfterInteractions(() => {
+              console.log('finish');
+            });
+          }}
         >
-          <FontAwesome name="car" size={24} color={'white'} />
+          <AnimatedAvatar
+            style={{
+              color: animationValue.interpolate({
+                inputRange: [0, 75, 150],
+                outputRange: ['blue', 'red', 'blue'],
+              }),
+              fontSize: animationValue.interpolate({
+                inputRange: [0, 75, 150],
+                outputRange: [24, 32, 24],
+              }),
+            }}
+            name="car"
+            color={'white'}
+          />
         </TouchableOpacity>
       </View>
 
