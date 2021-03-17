@@ -7,6 +7,7 @@ import { AppContext } from '../context/AppContext';
 import { TouchControlScreen } from '../screens/TouchControlScreen';
 import { UserScreen } from '../screens/UserScreen';
 import { ViewTransportScreen } from '../screens/ViewTransportScreen';
+import { CameraScreen } from '../screens/CameraScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +27,9 @@ export const AppTabNavigator = () => {
             case 'User':
               iconName = 'user';
               break;
+            case 'Camera':
+              iconName = 'camera';
+              break;
             default:
               iconName = 'transgender-alt';
               break;
@@ -38,6 +42,7 @@ export const AppTabNavigator = () => {
       <Tab.Screen name="TouchHandle" component={TouchControlScreen} />
       <Tab.Screen name="User" component={UserScreen} />
       <Tab.Screen name="Transport" component={ViewTransportScreen} />
+      <Tab.Screen name="Camera" component={CameraScreen} />
     </Tab.Navigator>
   );
 };

@@ -26,6 +26,7 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import { AppContext } from '../context/AppContext';
 import { FlatList } from 'react-native-gesture-handler';
+import { interpolate } from 'react-native-reanimated';
 
 const AnimatedAvatar = Animated.createAnimatedComponent(FontAwesome);
 
@@ -45,15 +46,13 @@ export const UserScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const animationValue = useRef(new Animated.Value(0)).current;
+  const animationValue2 = useRef(new Animated.Value(0)).current;
 
   return (
     <View style={styles.container}>
       <ScrollView
         scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -62,7 +61,7 @@ export const UserScreen = () => {
               await new Promise((resolve) => {
                 setTimeout(() => {
                   resolve('ok');
-                }, 2000);
+                }, 3000);
               });
               setItems([
                 Math.random(),
@@ -97,18 +96,10 @@ export const UserScreen = () => {
             </Card.Content> */}
             <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
             <Card.Actions style={{ justifyContent: 'flex-end' }}>
-              <Button
-                mode="outlined"
-                uppercase={false}
-                style={{ marginHorizontal: 20 }}
-              >
+              <Button mode="outlined" uppercase={false} style={{ marginHorizontal: 20 }}>
                 Cancel
               </Button>
-              <Button
-                mode="outlined"
-                uppercase={false}
-                onPress={() => alert(random)}
-              >
+              <Button mode="outlined" uppercase={false} onPress={() => alert(random)}>
                 {`OK`}
               </Button>
             </Card.Actions>
@@ -133,11 +124,7 @@ export const UserScreen = () => {
           },
         ]}
       >
-        <Image
-          source={require('../../assets/sky_00182.jpg')}
-          style={{ flex: 1, width: '100%' }}
-          resizeMethod="auto"
-        />
+        <Image source={require('../../assets/sky_00182.jpg')} style={{ flex: 1, width: '100%' }} resizeMethod="auto" />
         <View style={styles.backgroundChangeContainer}>
           <Button mode="text" color="#000">
             背景を変更する
@@ -182,9 +169,29 @@ export const UserScreen = () => {
       >
         <TouchableOpacity
           style={styles.iconButton}
-          onPress={() => setUser(null)}
+          onPress={() => {
+            animationValue2.setValue(0);
+            Animated.timing(animationValue2, {
+              toValue: 150,
+              duration: 1000,
+              useNativeDriver: false,
+            }).start();
+
+            InteractionManager.runAfterInteractions(() => {
+              setUser(null);
+            });
+          }}
         >
-          <AnimatedAvatar name="plane" size={24} color={'white'} />
+          <AnimatedAvatar
+            name="plane"
+            size={24}
+            style={{
+              color: animationValue2.interpolate({
+                inputRange: [0, 75, 150],
+                outputRange: ['yellow', 'green', 'red'],
+              }),
+            }}
+          />
         </TouchableOpacity>
       </View>
       <View
@@ -201,7 +208,7 @@ export const UserScreen = () => {
             animationValue.setValue(0);
             Animated.timing(animationValue, {
               toValue: 150,
-              duration: 2000,
+              duration: 750,
               useNativeDriver: false,
             }).start();
 
@@ -267,8 +274,8 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   avatarContainer: {
-    borderRadius: 100,
     position: 'absolute',
+    borderRadius: 100,
     top: AVATAR_TOP,
     left: 25,
     backgroundColor: '#bbb',
