@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Button, Colors, Modal as PaperModal, Text } from 'react-native-paper';
 import { Camera, PermissionStatus } from 'expo-camera';
+import { useNavigation } from '@react-navigation/core';
 import { FontAwesome } from '@expo/vector-icons';
 import { useBoolean } from '../hooks/useBoolean';
 import { TouchIcon } from '../components/TouchIcon';
@@ -21,8 +22,8 @@ export const CameraScreen = ({}) => {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [pictures, setPictures] = useState([]);
-
   const refCamera = useRef(null);
+  const navigation = useNavigation();
 
   const cameraOpen = async () => {
     const { status } = await Camera.getPermissionsAsync();
@@ -53,6 +54,17 @@ export const CameraScreen = ({}) => {
     setPictures(newPictures);
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      // console.log('blur', open);
+      // if (open) {
+      setOpen(false);
+      // }
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
@@ -63,7 +75,7 @@ export const CameraScreen = ({}) => {
         />
       </View>
       <View style={styles.footerContainer}>
-        <Button icon="camera" mode="contained" color={Colors.black} onPress={cameraOpen}>
+        <Button icon="camera" mode="contained" color={Colors.deepPurple400} onPress={cameraOpen}>
           カメラ起動
         </Button>
       </View>
@@ -76,15 +88,27 @@ export const CameraScreen = ({}) => {
           <View style={styles.pictureListContainer}>
             <FlatList
               data={pictures}
-              renderItem={({ item }) => <PictureBox photo={item} deletePhoto={deletePhotoHandler} />}
+              renderItem={({ item }) => (
+                <PictureBox photo={item} deletePhoto={deletePhotoHandler} />
+              )}
               keyExtractor={(item) => item.id}
               horizontal
             />
           </View>
           <View style={styles.closeButton}>
-            <TouchIcon name="close" size={46} color={Colors.red300} onPress={() => setOpen(false)} />
+            <TouchIcon
+              name="close"
+              size={36}
+              color={Colors.red300}
+              onPress={() => setOpen(false)}
+            />
           </View>
-          <TouchIcon name="circle-o" size={46} color={Colors.teal400} onPress={takePictureHandler} />
+          <TouchIcon
+            name="circle-o"
+            size={60}
+            color={Colors.teal400}
+            onPress={takePictureHandler}
+          />
         </Camera>
       </PaperModal>
     </SafeAreaView>
@@ -98,22 +122,24 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 8,
-    backgroundColor: '#ddd',
+    // backgroundColor: '#ddd',
   },
   footerContainer: {
     flex: 2,
-    backgroundColor: '#eee',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: Colors.grey900,
   },
   modalContainer: {
     flex: 1,
+    // height: window.height,
     backgroundColor: Colors.lightBlue200,
   },
   camera: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    // height: window.height,
     paddingBottom: 16,
   },
   closeButton: {

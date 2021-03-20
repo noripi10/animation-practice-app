@@ -8,7 +8,12 @@ export const PictureBox = ({ photo, deletePhoto }) => {
     <View style={styles.pictureBox}>
       <Image style={styles.image} resizeMethod="auto" source={{ uri: photo.uri }} />
       <View style={styles.deleteButton}>
-        <TouchAntIcon name="close" size={36} color={Colors.red600} onPress={() => deletePhoto(photo.id)} />
+        <TouchAntIcon
+          name="close"
+          size={24}
+          color={Colors.red600}
+          onPress={() => deletePhoto(photo.id)}
+        />
       </View>
     </View>
   );
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: 3,
+    right: 3,
   },
 });

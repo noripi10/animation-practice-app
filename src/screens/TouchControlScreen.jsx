@@ -10,15 +10,7 @@ import {
   PanResponder,
   InteractionManager,
 } from 'react-native';
-import {
-  Text,
-  Card,
-  Title,
-  Paragraph,
-  Snackbar,
-  Colors,
-  Button,
-} from 'react-native-paper';
+import { Text, Card, Title, Paragraph, Snackbar, Colors, Button } from 'react-native-paper';
 
 // nativeDriverの設定をoffにしないと警告発生
 // must be false (https://github.com/facebook/react-native/issues/13377)
@@ -56,13 +48,14 @@ export const TouchControlScreen = ({}) => {
       // reset
       // pan.setValue({ x: 0, y: 0 });
 
-      const { dx, dy } = gestureState;
-      pan.setValue({ x: dx, y: dy });
+      // const { dx, dy } = gestureState;
+      // pan.setValue({ x: dx, y: dy });
 
-      // Animated.spring(pan, {
-      //   toValue: { x: 0, y: 0 },
-      //   useNativeDriver: false,
-      // }).start();
+      Animated.spring(pan, {
+        toValue: { x: 0, y: 0 },
+        duration: 3000,
+        useNativeDriver: false,
+      }).start();
 
       // InteractionManager.runAfterInteractions(() => {
       //   console.log('move end');

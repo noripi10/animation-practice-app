@@ -1,11 +1,7 @@
 import React, { useContext, useLayoutEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-paper';
-import {
-  useNavigation,
-  getFocusedRouteNameFromRoute,
-  useRoute,
-} from '@react-navigation/native';
+import { Text, Button, Colors } from 'react-native-paper';
+import { useNavigation, getFocusedRouteNameFromRoute, useRoute } from '@react-navigation/native';
 import { AppContext } from '../context/AppContext';
 
 export const WelcomeScreen = ({}) => {
@@ -23,6 +19,8 @@ export const WelcomeScreen = ({}) => {
     <View style={styles.container}>
       <View style={styles.container}>
         <Button
+          style={{ padding: 3 }}
+          color={Colors.blueA700}
           uppercase={false}
           mode="contained"
           onPress={() => setUser({ name: 'sugiyama' })}
