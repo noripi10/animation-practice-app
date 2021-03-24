@@ -53,7 +53,7 @@ export const TouchControlScreen = ({}) => {
 
       Animated.spring(pan, {
         toValue: { x: 0, y: 0 },
-        duration: 3000,
+        duration: 1500,
         useNativeDriver: false,
       }).start();
 

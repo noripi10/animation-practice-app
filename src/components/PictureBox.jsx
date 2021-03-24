@@ -1,21 +1,30 @@
-import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import React, { useRef } from 'react';
+import { Animated, View, StyleSheet, Image, InteractionManager } from 'react-native';
 import { Colors } from 'react-native-paper';
 import { TouchAntIcon } from './TouchIcon';
 
 export const PictureBox = ({ photo, deletePhoto }) => {
+  const animationOpacity = useRef(new Animated.Value(1)).current;
   return (
-    <View style={styles.pictureBox}>
+    <Animated.View style={[styles.pictureBox, { opacity: animationOpacity }]}>
       <Image style={styles.image} resizeMethod="auto" source={{ uri: photo.uri }} />
       <View style={styles.deleteButton}>
         <TouchAntIcon
           name="close"
           size={24}
           color={Colors.red600}
-          onPress={() => deletePhoto(photo.id)}
+          onPress={() => {
+            Animated.timing(animationOpacity, {
+              toValue: 0,
+              duration: 500,
+              useNativeDriver: false,
+            }).start();
+
+            InteractionManager.runAfterInteractions(() => deletePhoto(photo.id));
+          }}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
