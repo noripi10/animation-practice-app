@@ -8,6 +8,7 @@ import { TouchControlScreen } from '../screens/TouchControlScreen';
 import { UserScreen } from '../screens/UserScreen';
 import { ViewTransportScreen } from '../screens/ViewTransportScreen';
 import { CameraScreen } from '../screens/CameraScreen';
+import { View, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +25,11 @@ export const AppTabNavigator = () => {
             case 'TouchHandle':
               iconName = 'hand-o-up';
               break;
-            case 'User':
+            case 'User1':
               iconName = 'user';
+              break;
+            case 'User2':
+              iconName = 'user-o';
               break;
             case 'Camera':
               iconName = 'camera';
@@ -34,15 +38,61 @@ export const AppTabNavigator = () => {
               iconName = 'transgender-alt';
               break;
           }
-          return <FontAwesome name={iconName} size={size} color={color} />;
+
+          return (
+            <View style={iconName === 'camera' ? styles.centerIcon : null}>
+              <FontAwesome name={iconName} size={iconName === 'camera' ? 32 : size} color={color} />
+            </View>
+          );
         },
         title: route.name === 'User' ? user.name : route.name,
       })}
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'absolute',
+          bottom: 16,
+          left: 16,
+          right: 16,
+          elevation: 0,
+          borderRadius: 16,
+          backgroundColor: 'white',
+          height: 70,
+          ...styles.shadow,
+        },
+      }}
     >
       <Tab.Screen name="TouchHandle" component={TouchControlScreen} />
-      <Tab.Screen name="User" component={UserScreen} />
       <Tab.Screen name="Transport" component={ViewTransportScreen} />
       <Tab.Screen name="Camera" component={CameraScreen} />
+      <Tab.Screen name="User1" component={UserScreen} />
+      <Tab.Screen name="User2" component={UserScreen} />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: '#7f5df0',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
+  },
+  centerIcon: {
+    top: -20,
+    backgroundColor: '#e6e9',
+    // margin: 16,
+    padding: 16,
+    borderRadius: 33,
+    width: 66,
+    height: 66,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

@@ -48,11 +48,15 @@ export const UserScreen = () => {
   const animationValue = useRef(new Animated.Value(0)).current;
   const animationValue2 = useRef(new Animated.Value(0)).current;
 
+  const AnimationImage = Animated.createAnimatedComponent(Image);
+
   return (
     <View style={styles.container}>
       <ScrollView
         scrollEventThrottle={16}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+          useNativeDriver: false,
+        })}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -124,14 +128,18 @@ export const UserScreen = () => {
           },
         ]}
       >
-        <Image source={require('../../assets/sky_00182.jpg')} style={{ flex: 1, width: '100%' }} resizeMethod="auto" />
+        <Image
+          source={require('../../assets/sky_00182.jpg')}
+          style={{ flex: 1, width: '100%' }}
+          resizeMethod="auto"
+        />
         <View style={styles.backgroundChangeContainer}>
           <Button mode="text" color="#000">
             背景を変更する
           </Button>
         </View>
       </Animated.View>
-      <Animated.Image
+      <AnimationImage
         source={{ uri: '123' }}
         style={[
           styles.avatarContainer,
