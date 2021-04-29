@@ -50,16 +50,20 @@ export const AppTabNavigator = () => {
       tabBarOptions={{
         showLabel: false,
         style: {
+          flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
           position: 'absolute',
-          bottom: 16,
+          bottom: 36,
           left: 16,
           right: 16,
           elevation: 0,
           borderRadius: 16,
           backgroundColor: 'white',
           height: 70,
+          paddingTop: 0,
+          paddingBottom: 0,
+          // marginBottom: 0,
           ...styles.shadow,
         },
       }}
@@ -75,18 +79,18 @@ export const AppTabNavigator = () => {
 
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: '#7f5df0',
+    shadowColor: '#212121',
     shadowOffset: {
       width: 0,
-      height: 10,
+      height: 3,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
     elevation: 5,
   },
   centerIcon: {
-    top: -20,
-    backgroundColor: '#e6e9',
+    top: -10,
+    backgroundColor: 'rgba(0,0,255,0.8)',
     // margin: 16,
     padding: 16,
     borderRadius: 33,

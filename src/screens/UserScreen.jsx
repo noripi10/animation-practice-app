@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useRef } from 'react';
 import {
   Animated,
@@ -43,12 +43,24 @@ export const UserScreen = () => {
   const { user, setUser } = useContext(AppContext);
   const [items, setItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const scrollY = useRef(new Animated.Value(0)).current;
 
+  const scrollY = useRef(new Animated.Value(0)).current;
   const animationValue = useRef(new Animated.Value(0)).current;
   const animationValue2 = useRef(new Animated.Value(0)).current;
-
   const AnimationImage = Animated.createAnimatedComponent(Image);
+  const refEventId = useRef();
+
+  useEffect(() => {
+    refEventId.current = scrollY.addListener(({ value }) => {
+      // console.log({ value });
+    });
+
+    return () => {
+      if (refEventId.current) {
+        scrollY.removeListener(refEventId.current);
+      }
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
