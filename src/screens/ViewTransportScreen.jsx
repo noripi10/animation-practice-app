@@ -1,25 +1,38 @@
-import React from 'react';
-import { useState } from 'react/cjs/react.development';
-import { View, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Pressable, StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import Slider from '@react-native-community/slider';
 import { useEffect } from 'react';
 
 export const ViewTransportScreen = () => {
+  const refId = useRef();
   const [degX, setDegX] = useState(0);
   const [degY, setDegY] = useState(0);
   const [degZ, setDegZ] = useState(0);
 
-  useEffect(() => {
-    const id = setInterval(() => {
+  const timer = () => {
+    // let timerId;
+    refId.current = setTimeout(() => {
+      setDegZ((z) => (z === 10 ? 0 : z + 1));
+      clearTimeout(refId.current);
+      timer();
+    }, 1000);
+  };
+
+  const timer2 = () => {
+    refId.current = setInterval(() => {
       setDegZ((z) => (z === 10 ? 0 : z + 1));
     }, 1000);
+  };
 
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
+  const timer3 = () => {
+    setDegZ((z) => (z === 10 ? 0 : z + 1));
+    refId.current = requestAnimationFrame(timer3);
+  };
+
+  useEffect(() => {}, []);
+
   return (
     <View style={styles.container}>
       <Slider
@@ -71,6 +84,33 @@ export const ViewTransportScreen = () => {
         ]}
         // start={{ x: 0, y: 0 }}
       />
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'stretch',
+          width: '100%',
+        }}
+      >
+        <Pressable
+          onPress={() => {
+            // timer()
+            // timer2()
+            timer3();
+          }}
+        >
+          <Text>Start</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            clearInterval(refId.current);
+            clearTimeout(refId.current);
+            cancelAnimationFrame(refId.current);
+          }}
+        >
+          <Text>End</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };

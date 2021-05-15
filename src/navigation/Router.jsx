@@ -40,7 +40,9 @@ export const Router = () => {
   const theme = scheme === 'dark' ? MergeDarkTheme : MergeDefaultTheme;
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer theme={theme}>{!user ? <AuthStackNavigator /> : <AppTabNavigator />}</NavigationContainer>
+      <NavigationContainer theme={theme}>
+        {!user ? <AuthStackNavigator /> : <AppTabNavigator />}
+      </NavigationContainer>
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
     </PaperProvider>
   );
