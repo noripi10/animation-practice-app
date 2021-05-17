@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     // height: window.height,
-    paddingBottom: 16,
+    paddingBottom: 48,
   },
   closeButton: {
     position: 'absolute',

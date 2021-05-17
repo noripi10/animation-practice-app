@@ -59,7 +59,7 @@ export const AppTabNavigator = () => {
           right: 16,
           elevation: 0,
           borderRadius: 16,
-          backgroundColor: 'white',
+          // backgroundColor: 'white',
           height: 70,
           paddingTop: 0,
           paddingBottom: 0,
