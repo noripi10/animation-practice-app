@@ -93,6 +93,7 @@ export const ViewTransportScreen = () => {
         }}
       >
         <Pressable
+          style={styles.pressable}
           onPress={() => {
             // timer()
             // timer2()
@@ -102,6 +103,7 @@ export const ViewTransportScreen = () => {
           <Text>Start</Text>
         </Pressable>
         <Pressable
+          style={styles.pressable}
           onPress={() => {
             clearInterval(refId.current);
             clearTimeout(refId.current);
@@ -127,5 +129,15 @@ const styles = StyleSheet.create({
     // backgroundColor: 'lightyellow',
     borderRadius: 16,
     margin: 8,
+  },
+  pressable: {
+    backgroundColor: '#228',
+    padding: 16,
+    borderRadius: 8,
+    width: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0.6,
   },
 });

@@ -100,7 +100,13 @@ export const TouchControlScreen = ({}) => {
             <Title>Card title</Title>
             <Paragraph>Card content</Paragraph>
           </Card.Content>
-          <Card.Cover source={{ uri: image }} resizeMethod="auto" style={{ flex: 1 }} />
+          <Card.Cover
+            source={{ uri: image }}
+            resizeMethod="auto"
+            style={{ flex: 1 }}
+            accessible={true}
+            accessibilityLabel="test picture"
+          />
           <Card.Actions>
             <Button>OK</Button>
             <Button>Cancel</Button>

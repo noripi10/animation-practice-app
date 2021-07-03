@@ -8,6 +8,7 @@ import { TouchControlScreen } from '../screens/TouchControlScreen';
 import { UserScreen } from '../screens/UserScreen';
 import { ViewTransportScreen } from '../screens/ViewTransportScreen';
 import { CameraScreen } from '../screens/CameraScreen';
+import { CollapseScreen } from '../screens/CollapseScreen';
 import { View, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
@@ -34,8 +35,11 @@ export const AppTabNavigator = () => {
             case 'Camera':
               iconName = 'camera';
               break;
-            default:
+            case 'Transport':
               iconName = 'transgender-alt';
+              break;
+            default:
+              iconName = 'code';
               break;
           }
 
@@ -71,6 +75,7 @@ export const AppTabNavigator = () => {
       <Tab.Screen name="TouchHandle" component={TouchControlScreen} />
       <Tab.Screen name="Transport" component={ViewTransportScreen} />
       <Tab.Screen name="Camera" component={CameraScreen} />
+      <Tab.Screen name="Collapse" component={CollapseScreen} />
       <Tab.Screen name="User1" component={UserScreen} />
       <Tab.Screen name="User2" component={UserScreen} />
     </Tab.Navigator>
