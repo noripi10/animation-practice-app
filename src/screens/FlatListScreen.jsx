@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { View, StyleSheet, FlatList, Text, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const data = [...Array(99).keys()].map((val) => Math.floor(Math.random() * val * 100));
@@ -9,15 +10,21 @@ export const FlatListScreen = ({}) => {
   const flatListRef = useRef();
   const [visible, setVisible] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
-  const _renderItem = useCallback(({ item }) => {
-    return (
-      <View style={styles.renderItemContainer}>
-        <Text>{item}</Text>
-      </View>
-    );
-  }, []);
+  const _renderItem = useCallback(
+    ({ item }) => {
+      return (
+        <View
+          style={styles.renderItemContainer}
+          onTouchEnd={() => showMessage({ message: 'NO:' + item.toString(), type: 'danger' })}
+        >
+          <Text>{item}</Text>
+        </View>
+      );
+    },
+    [data]
+  );
 
-  const _keyExtractor = useCallback((item) => item.toString(), []);
+  const _keyExtractor = useCallback((item) => item.toString(), [data]);
 
   useEffect(() => {
     scrollY.addListener(({ value }) => {
@@ -94,6 +101,7 @@ export const FlatListScreen = ({}) => {
           <Text>戻る</Text>
         </TouchableOpacity>
       </Animated.View>
+      <FlashMessage position="top" />
     </View>
   );
 };
