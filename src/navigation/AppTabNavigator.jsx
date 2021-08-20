@@ -10,6 +10,7 @@ import { ViewTransportScreen } from '../screens/ViewTransportScreen';
 import { CameraScreen } from '../screens/CameraScreen';
 import { CollapseScreen } from '../screens/CollapseScreen';
 import { View, StyleSheet } from 'react-native';
+import { FlatListScreen } from '../screens/FlatListScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +19,7 @@ export const AppTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="User"
+      initialRouteName="Flat"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -37,6 +38,9 @@ export const AppTabNavigator = () => {
               break;
             case 'Transport':
               iconName = 'transgender-alt';
+              break;
+            case 'Flat':
+              iconName = 'list';
               break;
             default:
               iconName = 'code';
@@ -74,6 +78,7 @@ export const AppTabNavigator = () => {
     >
       <Tab.Screen name="TouchHandle" component={TouchControlScreen} />
       <Tab.Screen name="Transport" component={ViewTransportScreen} />
+      <Tab.Screen name="Flat" component={FlatListScreen} />
       <Tab.Screen name="Camera" component={CameraScreen} />
       <Tab.Screen name="Collapse" component={CollapseScreen} />
       <Tab.Screen name="User1" component={UserScreen} />

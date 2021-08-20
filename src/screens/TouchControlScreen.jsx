@@ -77,9 +77,16 @@ export const TouchControlScreen = ({}) => {
       // const { dx, dy } = gestureState;
       // pan.setValue({ x: dx, y: dy });
 
+      Animated.timing(pan, {
+        toValue: { x: 0, y: 0 },
+        duration: 200,
+        useNativeDriver: false,
+      }).start();
+
       Animated.spring(pan, {
         toValue: { x: 0, y: 0 },
-        duration: 1500,
+        friction: 1,
+        tension: 2,
         useNativeDriver: false,
       }).start();
 

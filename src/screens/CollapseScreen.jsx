@@ -11,7 +11,9 @@ import {
   Dimensions,
 } from 'react-native';
 
-const list = [1, 2, 3];
+const list1 = [1, 2, 3];
+const list2 = [4, 5, 6];
+const list3 = [7, 8, 9];
 const ROW_HEIGHT = 36;
 
 export const CollapseScreen = () => {
@@ -23,9 +25,9 @@ export const CollapseScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView pagingEnabled>
-        <Collapse headerMessage="Collapse Header 1" headerColor="#d7e05a" list={list} />
-        <Collapse headerMessage="Collapse Header 2" headerColor="#ffa4b7" list={list} />
-        <Collapse headerMessage="Collapse Header 3" headerColor="#28a1dd" list={list} />
+        <Collapse headerMessage="Collapse Header 1" headerColor="#d7e05a" list={list1} />
+        <Collapse headerMessage="Collapse Header 2" headerColor="#ffa4b7" list={list2} />
+        <Collapse headerMessage="Collapse Header 3" headerColor="#28a1dd" list={list3} />
       </ScrollView>
     </SafeAreaView>
   );

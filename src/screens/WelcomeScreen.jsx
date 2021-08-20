@@ -12,7 +12,7 @@ export const WelcomeScreen = ({}) => {
 
   const loginHandler = () => {
     Animated.timing(animation, {
-      duration: 1500,
+      duration: 200,
       toValue: 1,
       useNativeDriver: false,
     }).start();

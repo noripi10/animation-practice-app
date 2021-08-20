@@ -33,10 +33,11 @@ export default function App() {
   };
 
   useEffect(() => {
-    loadingFunc().then((result) => {
-      console.log({ result });
-      setLoading(false);
-    });
+    // loadingFunc().then((result) => {
+    //   console.log({ result });
+    //   setLoading(false);
+    // });
+    setLoading(false);
   }, []);
 
   useEffect(() => {
