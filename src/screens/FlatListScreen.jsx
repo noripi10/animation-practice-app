@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList, Text, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-const data = [...Array(99).keys()].map((val) => Math.random() * val);
+const data = [...Array(99).keys()].map((val) => Math.floor(Math.random() * val * 100));
 
 export const FlatListScreen = ({}) => {
   const flatListRef = useRef();
