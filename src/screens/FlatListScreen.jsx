@@ -3,22 +3,38 @@ import { View, StyleSheet, FlatList, Text, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import FlashMessage, { showMessage, hideMessage } from 'react-native-flash-message';
 
+import ErrorBoundary from '../components/ErrorBoundary';
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 const data = [...Array(99).keys()].map((val) => Math.floor(Math.random() * val * 100));
+
+const fallbackContainer = ({ error }) => (
+  <View style={[styles.renderItemContainer, { backgroundColor: 'red' }]}>
+    <Text style={{ color: 'white' }}>{JSON.stringify(error)}</Text>
+  </View>
+);
+
+const ErrorItem = () => new Error('demo error');
 
 export const FlatListScreen = ({}) => {
   const flatListRef = useRef();
   const [visible, setVisible] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
   const _renderItem = useCallback(
-    ({ item }) => {
+    ({ item, index }) => {
       return (
-        <View
-          style={styles.renderItemContainer}
-          onTouchEnd={() => showMessage({ message: 'NO:' + item.toString(), type: 'danger' })}
-        >
-          <Text>{item}</Text>
-        </View>
+        <ErrorBoundary fallback={fallbackContainer} message="error!!!!!!!">
+          {index === 10 ? (
+            <ErrorItem />
+          ) : (
+            <View
+              style={styles.renderItemContainer}
+              onTouchEnd={() => showMessage({ message: 'NO:' + item.toString(), type: 'danger' })}
+            >
+              <Text style={{ color: 'white' }}>{item}</Text>
+            </View>
+          )}
+        </ErrorBoundary>
       );
     },
     [data]
@@ -28,7 +44,6 @@ export const FlatListScreen = ({}) => {
 
   useEffect(() => {
     scrollY.addListener(({ value }) => {
-      // console.log(value, visible);
       if (value > 100 && !visible) {
         setVisible(true);
       } else if (value <= 100 && visible) {
@@ -68,7 +83,7 @@ export const FlatListScreen = ({}) => {
             <Text style={styles.listHeaderText}>test</Text>
           </View>
         )}
-        numColumns={4}
+        numColumns={1}
         showsVerticalScrollIndicator={false}
       />
 
@@ -115,7 +130,7 @@ const styles = StyleSheet.create({
   listHeaderContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 100,
+    height: 120,
     marginHorizontal: 10,
     paddingBottom: 8,
     borderRadius: 4,
@@ -125,9 +140,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   renderItemContainer: {
-    // flex: 1,
-    width: '22.5%',
-    height: 60,
+    flex: 1,
+    // width: '22.5%',
+    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'teal',

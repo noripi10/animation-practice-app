@@ -34,7 +34,41 @@ const MergeDefaultTheme = {
   },
 };
 
+const initialRequest = new Promise((resolve, reject) => {
+  try {
+    setTimeout(() => {
+      resolve('reading finish');
+    }, 3000);
+  } catch (error) {
+    reject(error);
+  }
+});
+
+const createResource = (pending) => {
+  let error, response;
+
+  pending
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      error = e;
+    });
+
+  return {
+    read() {
+      if (error) throw error;
+      if (response) return response;
+      throw pending;
+    },
+  };
+};
+
+const resource = createResource(initialRequest);
+
 export const Router = () => {
+  resource.read();
+
   const { user } = useContext(AppContext);
   const scheme = useColorScheme();
   const theme = scheme === 'dark' ? MergeDarkTheme : MergeDefaultTheme;
