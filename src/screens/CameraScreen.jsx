@@ -75,7 +75,7 @@ export const CameraScreen = ({}) => {
         />
       </View>
       <View style={styles.footerContainer}>
-        <Button icon="camera" mode="contained" color={Colors.deepPurple400} onPress={cameraOpen}>
+        <Button icon='camera' mode='contained' color={Colors.deepPurple400} onPress={cameraOpen}>
           カメラ起動
         </Button>
       </View>
@@ -88,27 +88,15 @@ export const CameraScreen = ({}) => {
           <View style={styles.pictureListContainer}>
             <FlatList
               data={pictures}
-              renderItem={({ item }) => (
-                <PictureBox photo={item} deletePhoto={deletePhotoHandler} />
-              )}
+              renderItem={({ item }) => <PictureBox photo={item} deletePhoto={deletePhotoHandler} />}
               keyExtractor={(item) => item.id}
               horizontal
             />
           </View>
           <View style={styles.closeButton}>
-            <TouchIcon
-              name="close"
-              size={36}
-              color={Colors.red300}
-              onPress={() => setOpen(false)}
-            />
+            <TouchIcon name='close' size={36} color={Colors.red300} onPress={() => setOpen(false)} />
           </View>
-          <TouchIcon
-            name="circle-o"
-            size={60}
-            color={Colors.teal400}
-            onPress={takePictureHandler}
-          />
+          <TouchIcon name='circle-o' size={60} color={Colors.teal400} onPress={takePictureHandler} />
         </Camera>
       </PaperModal>
     </SafeAreaView>

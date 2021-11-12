@@ -25,7 +25,13 @@ export const FlatListScreen = ({}) => {
       return (
         <ErrorBoundary fallback={fallbackContainer} message="error!!!!!!!">
           {index === 10 ? (
-            <ErrorItem />
+            // <ErrorItem />
+            <View
+              style={styles.renderItemContainer}
+              onTouchEnd={() => showMessage({ message: 'NO:' + item.toString(), type: 'danger' })}
+            >
+              <Text style={{ color: 'white' }}>{item}</Text>
+            </View>
           ) : (
             <View
               style={styles.renderItemContainer}
@@ -133,6 +139,7 @@ const styles = StyleSheet.create({
     height: 120,
     marginHorizontal: 10,
     paddingBottom: 8,
+    marginBottom: 8,
     borderRadius: 4,
     backgroundColor: '#3b7c5c',
   },
@@ -147,8 +154,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'teal',
     padding: 16,
-    marginTop: 10,
-    marginLeft: 8,
+    marginBottom: 8,
+    marginHorizontal: 8,
     borderRadius: 4,
   },
 });

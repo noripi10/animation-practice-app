@@ -11,6 +11,7 @@ import { CameraScreen } from '../screens/CameraScreen';
 import { CollapseScreen } from '../screens/CollapseScreen';
 import { View, StyleSheet } from 'react-native';
 import { FlatListScreen } from '../screens/FlatListScreen';
+import { FlatListScreen2 } from '../screens/FlatListScreen2';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +20,7 @@ export const AppTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Flat"
+      initialRouteName='Flat'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -76,13 +77,13 @@ export const AppTabNavigator = () => {
         },
       }}
     >
-      <Tab.Screen name="TouchHandle" component={TouchControlScreen} />
-      <Tab.Screen name="Transport" component={ViewTransportScreen} />
-      <Tab.Screen name="Flat" component={FlatListScreen} />
-      <Tab.Screen name="Camera" component={CameraScreen} />
-      <Tab.Screen name="Collapse" component={CollapseScreen} />
-      <Tab.Screen name="User1" component={UserScreen} />
-      <Tab.Screen name="User2" component={UserScreen} />
+      <Tab.Screen name='TouchHandle' component={TouchControlScreen} />
+      <Tab.Screen name='Transport' component={ViewTransportScreen} />
+      <Tab.Screen name='Flat' component={FlatListScreen2} />
+      <Tab.Screen name='Camera' component={CameraScreen} />
+      <Tab.Screen name='Collapse' component={CollapseScreen} />
+      <Tab.Screen name='User1' component={UserScreen} />
+      <Tab.Screen name='User2' component={UserScreen} />
     </Tab.Navigator>
   );
 };

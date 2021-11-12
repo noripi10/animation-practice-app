@@ -36,7 +36,7 @@ export const WelcomeScreen = ({}) => {
               {
                 rotateZ: animation.interpolate({
                   inputRange: [0, 1],
-                  outputRange: ['0rad', '10rad'],
+                  outputRange: ['0rad', '30rad'],
                   extrapolate: 'clamp',
                 }),
               },
